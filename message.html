@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Message</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 50%, #f9d423 100%);
+            color: #2d1237;
+        }
+
+        .paper-pop {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .paper {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            opacity: 0;
+            animation: paperBurst 1.2s ease forwards;
+        }
+
+        .paper:nth-child(1) { left: 12%; top: 18%; background: #ff7eb6; animation-delay: 0.1s; }
+        .paper:nth-child(2) { left: 22%; top: 12%; background: #ffd166; animation-delay: 0.15s; }
+        .paper:nth-child(3) { left: 32%; top: 26%; background: #7ae582; animation-delay: 0.2s; }
+        .paper:nth-child(4) { left: 43%; top: 14%; background: #80ed99; animation-delay: 0.25s; }
+        .paper:nth-child(5) { left: 55%; top: 23%; background: #ffb703; animation-delay: 0.3s; }
+        .paper:nth-child(6) { left: 68%; top: 18%; background: #ff9f1c; animation-delay: 0.35s; }
+        .paper:nth-child(7) { left: 80%; top: 24%; background: #ff5d8f; animation-delay: 0.4s; }
+        .paper:nth-child(8) { left: 17%; top: 68%; background: #90e0ef; animation-delay: 0.45s; }
+        .paper:nth-child(9) { left: 28%; top: 71%; background: #cdb4db; animation-delay: 0.5s; }
+        .paper:nth-child(10) { left: 42%; top: 78%; background: #f4acb7; animation-delay: 0.55s; }
+        .paper:nth-child(11) { left: 57%; top: 72%; background: #f9c74f; animation-delay: 0.6s; }
+        .paper:nth-child(12) { left: 74%; top: 75%; background: #9bf6ff; animation-delay: 0.65s; }
+        .card {
+            position: relative;
+            z-index: 1;
+            width: min(850px, 92vw);
+            background: rgba(255,255,255,0.18);
+            border: 2px solid rgba(255,255,255,0.45);
+            border-radius: 28px;
+            box-shadow: 0 18px 50px rgba(54, 23, 62, 0.22);
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(7px);
+            animation: pageEnter 0.9s ease-out;
+        }
+        h1 {
+            font-size: clamp(2.1rem, 5vw, 4rem);
+            margin: 0 0 16px;
+            color: #4a1039;
+        }
+        p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            line-height: 1.9;
+            margin: 18px auto;
+            max-width: 700px;
+            color: #3b1a2d;
+        }
+        .heart {
+            font-size: 2.5rem;
+            margin: 14px 0;
+        }
+        @keyframes floatBalloon {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes paperBurst {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) rotate(0deg) scale(0.5);
+            }
+            20% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.95;
+                transform: translate(var(--x, 0px), var(--y, -50px)) rotate(24deg) scale(1.1);
+            }
+        }
+
+        @keyframes pageEnter {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="paper-pop">
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+    </div>
+
+    <div class="card">
+        <h1>💌 Dear KUTTIMA</h1>
+        <div class="heart">💖</div>
+        <p>
+            Thank you for being my constant support, my best friend, and my source of happiness.
+            You make life brighter, warmer, and more beautiful just by being in it.
+        </p>
+        <p>
+            I am so proud of the kind, strong, and amazing person you are. May your dreams grow bigger,
+            your smile stay brighter, and your life be filled with peace, love, and endless success.
+        </p>
+        <p>
+            I love you more than words can explain, and I hope this birthday brings you all the joy you deserve.
+            You deserve the world, and I hope you always remember how special you are to me.
+        </p>
+        <p>
+            Happy Birthday, my dear KUTTIMA. Enjoy your day to the fullest! 🎉🌷. 
+            And, I Missed Your Little Bites of Happiness. I hope this birthday is as wonderful and amazing as you are.
+        </p>
+
+    </div>
+</body>
+</html>

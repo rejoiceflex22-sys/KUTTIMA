@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Photos</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 35%, #f7b7c2 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .paper-pop {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .paper {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 5px;
+            opacity: 0;
+            filter: saturate(1.3);
+            box-shadow: 0 0 14px rgba(255,255,255,0.2);
+            animation: paperBurst 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+        }
+
+        .paper:nth-child(1) { left: 8%; top: 16%; background: #ff4d6d; animation-delay: 0.05s; }
+        .paper:nth-child(2) { left: 17%; top: 8%; background: #ffd166; animation-delay: 0.08s; }
+        .paper:nth-child(3) { left: 25%; top: 22%; background: #7ae582; animation-delay: 0.12s; }
+        .paper:nth-child(4) { left: 32%; top: 12%; background: #80ed99; animation-delay: 0.15s; }
+        .paper:nth-child(5) { left: 42%; top: 18%; background: #ffb703; animation-delay: 0.18s; }
+        .paper:nth-child(6) { left: 52%; top: 10%; background: #ff9f1c; animation-delay: 0.22s; }
+        .paper:nth-child(7) { left: 64%; top: 18%; background: #9b5de5; animation-delay: 0.25s; }
+        .paper:nth-child(8) { left: 74%; top: 12%; background: #00bbf9; animation-delay: 0.28s; }
+        .paper:nth-child(9) { left: 84%; top: 22%; background: #f15bb5; animation-delay: 0.32s; }
+        .paper:nth-child(10) { left: 10%; top: 63%; background: #90e0ef; animation-delay: 0.35s; }
+        .paper:nth-child(11) { left: 18%; top: 76%; background: #cdb4db; animation-delay: 0.38s; }
+        .paper:nth-child(12) { left: 30%; top: 68%; background: #f4acb7; animation-delay: 0.42s; }
+        .paper:nth-child(13) { left: 40%; top: 82%; background: #f9c74f; animation-delay: 0.46s; }
+        .paper:nth-child(14) { left: 52%; top: 70%; background: #9bf6ff; animation-delay: 0.5s; }
+        .paper:nth-child(15) { left: 64%; top: 78%; background: #a0c4ff; animation-delay: 0.54s; }
+        .paper:nth-child(16) { left: 76%; top: 68%; background: #ff7eb6; animation-delay: 0.58s; }
+        .paper:nth-child(17) { left: 86%; top: 76%; background: #7ae582; animation-delay: 0.62s; }
+        .paper:nth-child(18) { left: 48%; top: 50%; background: #ff6b6b; animation-delay: 0.66s; }
+        .page {
+            position: relative;
+            z-index: 1;
+            width: min(1100px, 92vw);
+            padding: 30px 18px 50px;
+            animation: pageEnter 0.9s ease-out;
+        }
+        h1 {
+            text-align: center;
+            font-size: clamp(2.3rem, 5vw, 4rem);
+            margin-bottom: 12px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 28px;
+            opacity: 0.95;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+        .photo-card {
+            background: rgba(255,255,255,0.12);
+            border: 2px solid rgba(255,255,255,0.35);
+            border-radius: 22px;
+            padding: 12px;
+            box-shadow: 0 18px 40px rgba(92, 44, 74, 0.2);
+        }
+        .photo-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 16px;
+            display: block;
+        }
+        .caption {
+            text-align: center;
+            padding: 12px 8px 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff7f9;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .nav a {
+            position: relative;
+            width: 130px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            background: linear-gradient(180deg, #ff99be, #e63e7f);
+            border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+            box-shadow: 0 12px 22px rgba(104, 29, 63, 0.18);
+            transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+            animation: floatBalloon 3s ease-in-out infinite;
+        }
+
+        .nav a::before {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 50%;
+            top: 16px;
+            left: 24px;
+        }
+
+        .nav a::after {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 42px;
+            background: rgba(104, 29, 63, 0.48);
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+        }
+
+        .nav a:hover {
+            transform: translateY(-8px) scale(1.06);
+            filter: brightness(1.08);
+            box-shadow: 0 18px 28px rgba(104, 29, 63, 0.25);
+        }
+
+        .nav a span {
+            position: relative;
+            z-index: 2;
+            width: 78px;
+            text-align: center;
+            line-height: 1.2;
+            font-size: 0.9rem;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.18);
+        }
+
+        @keyframes floatBalloon {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes paperBurst {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) rotate(0deg) scale(0.35);
+            }
+            18% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(
+                    calc(var(--tx, 0px) + ((random(1, 90) - 45) * 1px)),
+                    calc(var(--ty, -60px) + ((random(1, 90) - 45) * 1px))
+                ) rotate(180deg) scale(1.5);
+            }
+        }
+
+        @keyframes pageEnter {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="paper-pop">
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+        <span class="paper"></span>
+    </div>
+
+    <div class="page">
+        <h1>📸 Our Memories</h1>
+        <p class="subtitle">A little collection of our happiest moments together</p>
+
+        <div class="gallery">
+            <div class="photo-card">
+                <img src="WhatsApp Image 2026-10-03 at 7.25.34 PM.jpeg" alt="Happy family moment">
+                <div class="caption">Smile Together</div>
+            </div>
+            <div class="photo-card">
+                <img src="1.jpeg" alt="Sisters laughing">
+                <div class="caption">Pure Joy</div>
+            </div>
+            <div class="photo-card">
+                <img src="2.jpeg" alt="Celebration moment">
+                <div class="caption">Best Days</div>
+            </div>
+            <div class="photo-card">
+                <img src="3.jpeg" alt="Friends hugging">
+                <div class="caption">Love Always</div>
+            </div>
+        </div>
+
+        <div class="nav">
+            <a href="message.html"><span>Next</span></a>
+        </div>
+    </div>
+</body>
+</html>
